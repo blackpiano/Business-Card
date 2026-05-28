@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonathan Tan – Dynamic Digital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #E8881E;
+    --orange-dark: #C96E0A;
+    --orange-light: #F4A44A;
+    --white: #ffffff;
+    --text-dark: #222;
+    --text-mid: #444;
+  }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .card-wrapper {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 40px rgba(0,0,0,0.15);
+  }
+
+  /* ── HEADER: Logo ── */
+  .header-logo {
+    background: #fff;
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-svg {
+    width: 220px;
+    height: auto;
+  }
+
+  /* ── HERO BANNER ── */
+  .hero-banner {
+    background: var(--orange);
+    position: relative;
+    padding: 28px 24px 28px 180px;
+    min-height: 130px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .hero-banner::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 240px;
+    height: 200px;
+    background: rgba(255,255,255,0.07);
+    transform: rotate(25deg) skewX(-10deg);
+    pointer-events: none;
+  }
+  .hero-banner::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    width: 160px;
+    height: 160px;
+    background: rgba(255,255,255,0.05);
+    transform: rotate(-15deg) skewY(10deg);
+    pointer-events: none;
+  }
+
+  /* geometric triangles */
+  .geo { position: absolute; pointer-events: none; }
+  .geo-1 { width: 0; height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 120px solid rgba(255,255,255,0.08);
+    left: 10px; top: 10px; transform: rotate(10deg); }
+  .geo-2 { width: 0; height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 90px solid rgba(255,255,255,0.06);
+    left: 80px; top: 30px; transform: rotate(-15deg); }
+  .geo-3 { width: 0; height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 70px solid rgba(255,255,255,0.05);
+    left: 50px; top: 60px; transform: rotate(30deg); }
+
+  .hero-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-name span { font-weight: 400; }
+
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-phone, .hero-email {
+    font-size: 13px;
+    color: rgba(255,255,255,0.92);
+    margin-top: 3px;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+  }
+
+  /* ── ADDRESS BLOCK ── */
+  .address-block {
+    background: #fff;
+    padding: 18px 24px;
+    border-bottom: 1px solid #eee;
+  }
+  .address-block p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── CONTACT LIST ── */
+  .contact-section {
+    background: var(--orange);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    right: -30px; bottom: -30px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0;
+    align-items: start;
+  }
+
+  .contact-list { list-style: none; }
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .contact-list li:last-child { border-bottom: none; }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .contact-list a, .contact-list span {
+    font-size: 13.5px;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .contact-list a:hover { text-decoration: underline; }
+
+  .qr-box {
+    margin-left: 16px;
+    margin-top: 8px;
+    background: #fff;
+    padding: 6px;
+    border-radius: 8px;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+  .qr-placeholder {
+    width: 98px;
+    height: 98px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #999;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  /* ── SHARE / SEND CARD ── */
+  .share-section {
+    background: var(--orange);
+    padding: 0 20px 20px;
+  }
+
+  .share-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+  }
+
+  .share-row span {
+    font-size: 13.5px;
+    color: #fff;
+  }
+
+  /* WhatsApp send form */
+  .wa-send {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    align-items: center;
+  }
+
+  .wa-country {
+    background: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    color: var(--text-dark);
+  }
+
+  .wa-input {
+    flex: 1;
+    background: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    outline: none;
+    color: var(--text-dark);
+  }
+  .wa-input::placeholder { color: #aaa; }
+
+  .wa-send-btn {
+    background: #1a3a5c;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .wa-send-btn:hover { background: #122a45; }
+
+  /* Phone Book / Install */
+  .action-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .action-btn {
+    flex: 1;
+    background: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--orange-dark);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+  .action-btn:hover { background: #ffe8cc; }
+
+  /* Social icons row */
+  .social-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+    padding-bottom: 4px;
+  }
+
+  .social-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .social-icon:hover { background: rgba(255,255,255,0.35); }
+
+  /* ── ABOUT US ── */
+  .about-section {
+    background: #fff;
+    padding: 30px 24px;
+  }
+  .about-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .about-section p {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 16px;
+  }
+  .about-section p:last-child { margin-bottom: 0; }
+
+  /* ── FOOTER BANNER ── */
+  .footer-banner {
+    background: var(--orange);
+    padding: 36px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 160px;
+  }
+
+  .footer-banner::before {
+    content: '';
+    position: absolute;
+    left: -30px; top: -30px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.05);
+    transform: rotate(20deg) skewX(-5deg);
+  }
+  .footer-banner::after {
+    content: '';
+    position: absolute;
+    right: -20px; bottom: -20px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.06);
+    transform: rotate(-15deg);
+  }
+
+  .footer-logo-svg {
+    width: 260px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── COPYRIGHT ── */
+  .copyright {
+    background: #fff;
+    text-align: center;
+    padding: 14px;
+    font-size: 12px;
+    color: #777;
+    border-top: 1px solid #eee;
+  }
+  .copyright a { color: var(--orange); text-decoration: none; }
+
+  /* SVG Logo shared styles */
+  .logo-dyn { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+  .logo-dig { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+  .logo-sol { font-family: 'Montserrat', sans-serif; font-weight: 400; letter-spacing: 3px; }
+
+  @media (max-width: 480px) {
+    .card-wrapper { max-width: 100%; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card-wrapper">
+
+  <!-- LOGO HEADER -->
+  <div class="header-logo">
+    <svg class="logo-svg" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
+      <!-- Arrow/triangle icon -->
+      <polygon points="0,10 18,30 0,50" fill="#E8881E"/>
+      <polygon points="18,10 36,30 18,50" fill="#1a3a5c" opacity="0.85"/>
+      <polygon points="9,0 27,0 18,18" fill="#E8881E" opacity="0.7"/>
+      <!-- Text -->
+      <text x="44" y="28" class="logo-dyn" font-size="22" fill="#1a3a5c">DYNAMIC</text>
+      <text x="44" y="50" class="logo-dig" font-size="16" fill="#E8881E">Digital</text>
+      <text x="124" y="50" class="logo-sol" font-size="9" fill="#888">SOLUTIONS PTE LTD</text>
+    </svg>
+  </div>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <div class="geo geo-1"></div>
+    <div class="geo geo-2"></div>
+    <div class="geo geo-3"></div>
+    <div class="hero-name">JONATHAN <span>TAN</span></div>
+    <div class="hero-title">Sales Director</div>
+    <a href="tel:+6598285703" class="hero-phone">+65 9828 5703</a>
+    <a href="mailto:jonathan@dynamic-ds.com" class="hero-email">jonathan@dynamic-ds.com</a>
+  </div>
+
+  <!-- ADDRESS BLOCK -->
+  <div class="address-block">
+    <p>
+      81 Tagore Lane<br>
+      #04-12 Tag A<br>
+      Singapore 787502<br>
+      Tel : &nbsp;+65 6276 9622
+    </p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div class="contact-section">
+    <div class="contact-grid">
+      <ul class="contact-list">
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>81 Tagore Lane, #04-12 Tag A<br>Singapore 787502</span>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <a href="mailto:jonathan@dynamic-ds.com">jonathan@dynamic-ds.com</a>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <!-- WhatsApp icon -->
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <a href="https://wa.me/6598285703">+(65) 9828 5703</a>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.41 2 2 0 0 1 3.57 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/></svg>
+          </div>
+          <a href="tel:+6562769622">+(65) 6276 9622</a>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="16,7 12,3 8,7"/><line x1="12" y1="3" x2="12" y2="13"/></svg>
+          </div>
+          <span>+(65) 6271 9056</span>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <a href="https://www.dynamic-ds.com" target="_blank">www.dynamic-ds.com</a>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><circle cx="19" cy="19" r="3" fill="white" stroke="white"/><line x1="17" y1="19" x2="21" y2="19" stroke="#E8881E" stroke-width="2"/><line x1="19" y1="17" x2="19" y2="21" stroke="#E8881E" stroke-width="2"/></svg>
+          </div>
+          <a href="mailto:?subject=Jonathan Tan – Dynamic Digital Solutions&body=Check out my digital business card!" class="share-link">Share Your Card By Email</a>
+        </li>
+        <li>
+          <div class="contact-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </div>
+          <a id="wa-share-link" href="#" onclick="shareWhatsApp()">Share Your Card By WhatsApp</a>
+        </li>
+      </ul>
+
+      <!-- QR Code -->
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://sgnamecard.com.sg/dynamic-ds/c/MKqyZzxzFucB" alt="QR Code" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- WhatsApp Send -->
+    <div class="wa-send">
+      <button class="wa-country">🇸🇬 65 ▾</button>
+      <input class="wa-input" type="tel" id="wa-number" placeholder="WhatsApp No">
+      <button class="wa-send-btn" onclick="sendWhatsApp()">SEND</button>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-btns">
+      <a href="#" class="action-btn" onclick="addToPhoneBook()">Phone Book</a>
+      <a href="#" class="action-btn" onclick="installCard()">Install Card</a>
+    </div>
+
+    <!-- Social icons -->
+    <div class="social-row">
+      <a href="#" class="social-icon" title="Facebook">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="#" class="social-icon" title="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="#" class="social-icon" title="X / Twitter">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ABOUT US -->
+  <div class="about-section">
+    <h2>About Us</h2>
+    <p>Do you need assistance in your information technology and audio video solutions, it's going to take more than just the equipments to fix it. Dynamic Digital Solutions Pte Ltd ("DDS") is here to assist you with just a call or an email away.</p>
+    <p>DDS was organized 11 years ago by a group of professional trained personnel with 20 years of in-depth knowledge and experience. We can address your problems that no one else can. We work with all organizations across the public, private and social sector.</p>
+    <p>We are committed and passionate in our challenges that matter to our clients, who can put their trust in us, as we promise to deliver the best solutions in enhancing your needs to succeed.</p>
+    <p>Our goal is to create solutions with latest digital technology for your needs. Our experience in ensuring our solutions deliver their greatest standard to provide the best results for your needs.</p>
+  </div>
+
+  <!-- FOOTER BANNER -->
+  <div class="footer-banner">
+    <svg class="footer-logo-svg" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,12 20,35 0,58" fill="white" opacity="0.9"/>
+      <polygon points="20,12 40,35 20,58" fill="white" opacity="0.55"/>
+      <polygon points="10,0 30,0 20,20" fill="white" opacity="0.7"/>
+      <text x="50" y="33" font-family="Montserrat, sans-serif" font-size="24" font-weight="800" fill="white">DYNAMIC</text>
+      <text x="50" y="57" font-family="Montserrat, sans-serif" font-size="18" font-weight="700" fill="white" opacity="0.9">Digital</text>
+      <text x="138" y="57" font-family="Montserrat, sans-serif" font-size="10" font-weight="400" fill="white" opacity="0.75" letter-spacing="3">SOLUTIONS PTE LTD</text>
+    </svg>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div class="copyright">
+    Copyright &copy; 2026 <a href="https://www.dynamic-ds.com" target="_blank">www.dynamic-ds.com</a> All Rights Reserved.
+  </div>
+
+</div>
+
+<script>
+  function sendWhatsApp() {
+    const num = document.getElementById('wa-number').value.trim();
+    if (!num) { alert('Please enter a WhatsApp number.'); return; }
+    const msg = encodeURIComponent('Hi! Check out my digital business card: https://sgnamecard.com.sg/dynamic-ds/c/MKqyZzxzFucB');
+    window.open(`https://wa.me/65${num}?text=${msg}`, '_blank');
+  }
+
+  function shareWhatsApp() {
+    const msg = encodeURIComponent('Hi! Check out my digital business card: https://sgnamecard.com.sg/dynamic-ds/c/MKqyZzxzFucB');
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
+  }
+
+  function addToPhoneBook() {
+    const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Jonathan Tan\nORG:Dynamic Digital Solutions Pte Ltd\nTITLE:Sales Director\nTEL;TYPE=CELL:+6598285703\nTEL;TYPE=WORK:+6562769622\nTEL;TYPE=FAX:+6562719056\nEMAIL:jonathan@dynamic-ds.com\nADR;TYPE=WORK:;;81 Tagore Lane #04-12 Tag A;Singapore;;787502;SG\nURL:https://www.dynamic-ds.com\nEND:VCARD`;
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'jonathan-tan.vcf'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function installCard() {
+    alert('To install: tap Share → "Add to Home Screen" in Safari (iOS) or Chrome (Android).');
+  }
+</script>
+
+</body>
+</html>
