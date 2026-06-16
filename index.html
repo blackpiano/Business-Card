@@ -323,7 +323,7 @@ body {
 function sendWA() {
   const num = document.getElementById('wa-num').value.replace(/\D/g,'');
   if (!num || num.length < 8) { alert('Please enter a valid WhatsApp number.'); return; }
-  const msg = encodeURIComponent('Hi Jonathan, I got your digital business card and would like to connect!');
+  const msg = encodeURIComponent('Hi, please find Jonathan Tan\'s digital business card here: https://card.dynamic-ds.com');
   window.open('https://wa.me/65' + num + '?text=' + msg, '_blank');
 }
 function addContact() {
